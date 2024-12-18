@@ -25,7 +25,6 @@ with open('5.in') as file:
                 else:
                     newseq.append(u)
             ret += newseq[len(newseq) // 2]
-            print(seq, newseq)
             break
 
 print(ret)
