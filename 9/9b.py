@@ -23,6 +23,7 @@ for i in range(base - 1, 0, -1):
     else:
         seg[i] = seg[2 * i]
 
+
 def query(value):
     if seg[1][1] < value:
         return -1
@@ -35,14 +36,16 @@ def query(value):
             node = lc ^ 1
     return node
 
+
 def update(node, sub):
     seg[node] = (seg[node][0] + sub, seg[node][1] - sub)
     while node > 1:
         node >>= 1
-        if seg[2 * node][1]  < seg[2 * node + 1][1]:
+        if seg[2 * node][1] < seg[2 * node + 1][1]:
             seg[node] = seg[2 * node + 1]
         else:
             seg[node] = seg[2 * node]
+
 
 ret = 0
 for start, id, size in files[::-1]:

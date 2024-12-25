@@ -6,9 +6,9 @@ with open('13.in') as file:
 n = len(input)
 
 
-def work(ar):
+def work(ar, delta):
     a, c, b, d, e, f = ar
-    e, f = e + 10 ** 13, f + 10 ** 13
+    e, f = e + delta, f + delta
     det = a * d - b * c
     t1 = d * e - b * f
     t2 = -c * e + a * f
@@ -19,4 +19,5 @@ def work(ar):
     return 0
 
 
-print(sum(work(input[i:i + 6]) for i in range(0, n, 6)))
+print(sum(work(input[i:i + 6], 0) for i in range(0, n, 6)))
+print(sum(work(input[i:i + 6], 10 ** 13) for i in range(0, n, 6)))

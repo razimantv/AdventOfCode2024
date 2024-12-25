@@ -3,6 +3,7 @@ from collections import defaultdict
 mod = 0xffffff
 tot = defaultdict(int)
 
+
 def next(x, n):
     diff, seen = 0, set()
     for i in range(n):
@@ -12,8 +13,8 @@ def next(x, n):
         x = (x ^ (x << 11)) & mod
         diff = ((diff << 5) | ((d := x % 10) - last % 10 + 9)) & 0xfffff
         if i > 2 and diff not in seen:
-                seen.add(diff)
-                tot[diff] += d
+            seen.add(diff)
+            tot[diff] += d
     return x
 
 

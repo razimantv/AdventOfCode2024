@@ -30,4 +30,3 @@ for start, id, size in files[::-1]:
     ret += (2 * start + size - 1) * size * id // 2
 
 print(ret)
-

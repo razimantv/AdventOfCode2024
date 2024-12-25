@@ -40,3 +40,11 @@ start, end = [getstart(grid, m, n, c) for c in 'SE']
 dist = getdist(grid, [(*start, 0)])
 enddist = min(dist[(*end, dir)] for dir in range(4))
 print(enddist)
+
+good = set(
+    (i, j) for (i, j, dir), d in getdist(
+        grid, [(*end, x) for x in range(4)]
+    ).items()
+    if d + dist[(i, j, dir ^ 2)] == enddist
+)
+print(len(good))

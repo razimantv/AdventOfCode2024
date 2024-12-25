@@ -1,8 +1,5 @@
-import numpy as np
 from itertools import pairwise
 from collections import Counter
-
-good = [[-3, -1], [1, 3]]
 
 
 def isgood(report):
@@ -11,12 +8,14 @@ def isgood(report):
     return (-3 <= a <= b <= -1 or 1 <= a <= b <= 3)
 
 
-ret = 0
+ret1, ret2 = 0, 0
 with open('2.in') as file:
     for line in file:
         report = list(map(int, line.split()))
+        if isgood(report):
+            ret1 += 1
         for i in range(len(report) + 1):
             if isgood(report[:i] + report[i+1:]):
-                ret += 1
+                ret2 += 1
                 break
-print(ret)
+print(ret1, ret2)

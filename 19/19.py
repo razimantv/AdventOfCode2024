@@ -8,19 +8,20 @@ with open('19.in') as file:
 words.sort(key=len)
 
 
-def poss(target):
+def count(target):
     n = len(target)
-    poss = [True] + [False] * n
+    cnt = [1] + [0] * n
     for i in range(n):
-        if not poss[i]:
+        if not cnt[i]:
             continue
         for word in words:
             if i + len(word) <= n:
                 if target[i:i + len(word)] == word:
-                    poss[i + len(word)] = True
+                    cnt[i + len(word)] += cnt[i]
             else:
                 break
-    return poss[n]
+    return cnt[n]
 
 
-print(sum(poss(target) for target in targets))
+print(sum(count(target) > 0 for target in targets))
+print(sum(count(target) for target in targets))

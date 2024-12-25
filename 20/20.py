@@ -32,16 +32,24 @@ m, n = len(grid), len(grid[0])
 
 start, end = [getstart(grid, m, n, c) for c in 'SE']
 dist, revdist = getdist(grid, m, n, start), getdist(grid, m, n, end)
-enddist, ret, D = dist[end[0]][end[1]], 0, 100
-for i in range(1, m - 1):
-    for j in range(1, n - 1):
-        if grid[i][j] == '#':
-            for dx, dy in dr:
-                if (
-                    dist[i + dx][j + dy] + revdist[i - dx][j - dy] + 2 + D
-                    <= enddist
-                ):
-                    ret += 1
-                    break
+enddist, D = dist[end[0]][end[1]], 100
 
-print(ret)
+
+def count(delta, D):
+    ret = 0
+    for i in range(1, m - 1):
+        for j in range(1, n - 1):
+            if grid[i][j] == '#':
+                continue
+            for x in range(max(1, i - delta), min(m - 1, i + delta + 1)):
+                deltay = delta - abs(x - i)
+                for y in range(max(1, j - deltay), min(n - 1, j + deltay + 1)):
+                    if grid[x][y] != '#' and (
+                        dist[i][j] + revdist[x][y] + abs(x - i) + abs(y - j)
+                        <= enddist - D
+                    ):
+                        ret += 1
+    return ret
+
+
+print(count(2, 100), count(20, 100))

@@ -23,6 +23,7 @@ def dist(n):
     return grid[-1][-1]
 
 
+print(dist(1024))
 start, end = 0, len(bad) + 1
 while end - start > 1:
     mid = (start + end) // 2
