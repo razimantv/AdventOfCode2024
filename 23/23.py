@@ -16,3 +16,17 @@ for u, vertices in graph.items():
         if w in graph[v]:
             triplets.add(tuple(sorted([u, v, w])))
 print(len(triplets))
+
+
+def largest_clique(cur, largest):
+    if len(cur) > len(largest[0]):
+        largest[0] = cur
+    for v in graph[u := cur[-1]]:
+        if v > u and all(w in graph[v] for w in cur[:-1]):
+            largest_clique(cur + [v], largest)
+
+
+largest = [[]]
+for u in graph:
+    largest_clique([u], largest)
+print(','.join(largest[0]))

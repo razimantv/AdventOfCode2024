@@ -17,32 +17,34 @@ def hasborder(i, j, di, dj):
 
 
 def cellperimeter(i, j):
-    ret = 0
+    p1, p2 = sum(hasborder(i, j, di, dj) for di, dj in drs), 0
     for (di, dj), (dbi, dbj) in zip(drs, block_drs):
         x, y = i + dbi, j + dbj
         if hasborder(i, j, di, dj) and not (
             inside(x, y) and grid[x][y] == grid[i][j]
             and hasborder(x, y, di, dj)
         ):
-            ret += 1
-    return ret
+            p2 += 1
+    return p1, p2
 
 
 def dfs(i, j):
     if seen[i][j]:
-        return [0, 0]
-    ret = [1, cellperimeter(i, j)]
+        return [0, 0, 0]
+    ret = [1, *cellperimeter(i, j)]
     seen[i][j] = 1
     for di, dj in drs:
         x, y = i + di, j + dj
         if inside(x, y) and grid[x][y] == grid[i][j]:
-            a, b = dfs(x, y)
-            ret[0] += a
-            ret[1] += b
+            for pos, val in enumerate(dfs(x, y)):
+                ret[pos] += val
     return ret
 
 
-print(sum(
-    (cur := dfs(i, j))[0] * cur[1]
-    for i in range(m) for j in range(n)
-))
+ret = [0, 0]
+for i in range(m):
+    for j in range(n):
+        cur = dfs(i, j)
+        ret[0] += cur[0] * cur[1]
+        ret[1] += cur[0] * cur[2]
+print(ret)
