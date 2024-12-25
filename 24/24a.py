@@ -1,6 +1,7 @@
-from functools import reduce
-from operator import or_
+from functools import cache, reduce
+from operator import or_, and_, xor
 
+ops = {'AND': and_, 'OR': or_, 'XOR': xor}
 value, rules = {}, {}
 with open('24.in') as file:
     for line in file:
@@ -13,17 +14,12 @@ with open('24.in') as file:
             ]
 
 
+@cache
 def calculate(x):
     if x in value:
         return value[x]
     op, x1, x2 = rules[x]
-    match op:
-        case 'AND':
-            return calculate(x1) & calculate(x2)
-        case 'OR':
-            return calculate(x1) | calculate(x2)
-        case 'XOR':
-            return calculate(x1) ^ calculate(x2)
+    return ops[op](calculate(x1), calculate(x2))
 
 
 print(reduce(or_, (calculate(z) << int(z[1:]) for z in rules if z[0] == 'z')))
