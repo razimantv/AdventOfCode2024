@@ -1,6 +1,6 @@
 # Day 10
 
-[Problem link](https://adventofcode.com/2024/day/ 0)
+[Problem link](https://adventofcode.com/2024/day/10)
 
 ## Part 1
 
